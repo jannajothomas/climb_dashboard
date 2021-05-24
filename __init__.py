@@ -15,6 +15,7 @@ app.secret_key = 'super secret key'
 SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 flask_session.Session(app)
+app.debug = True
 
 
 @app.route('/')
