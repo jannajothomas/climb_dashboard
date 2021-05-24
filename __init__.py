@@ -20,7 +20,7 @@ flask_session.Session(app)
 
 @app.route('/')
 def home_page():
-    logging.basicConfig()
+    logging.basicConfig(level=logging.INFO)
     # logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.INFO)
     logging.info('So should this')
     update_session_var()
