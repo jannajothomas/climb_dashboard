@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-10">
+        <table class="table table-hover">
+            <tr>
+                {% for header in header_row %}
+                    <th scope="col" class="header">{{ header }}</th>
+                {% endfor %}
+            </tr>
+        <tbody>
+
+            {% for route in data_rows %}
+                {% if loop.previtem is not defined %}
+                    <tr scope="col">
+                        <th colspan="6" class="table_header">
+                            <a href="{{ url_for('sort') }}?crag={{ route[0] }}">{{ route[0] }}</a>
+                        </th>
+                    </tr>
+                {% endif %}
+
+                {% if loop.previtem is defined and loop.previtem[0] != route[0] %}
+                    <tr scope="col">
+                        <th colspan="6" class="table_header">
+                            <a href="{{ url_for('sort') }}?crag={{ route[0] }}">{{ route[0] }}</a>
+                        </th>
+                    </tr>
+                {% endif %}
+
+                {% if route[3] == None %}
+                <tr>
+                {% else %}
+                    <tr class="table-primary">
+                {% endif %}
+                    <td class="route_col0" width="50%"> {{ route[1] }}</td>
+                    <td class="route_col1"> {{ route[2] }}</td>
+                    <td class="body_col"> {{ route[3] or '' }}</td>
+                    <td class="body_col"> {{ route[4] or '' }}</td>
+                    <td class="body_col"> {{ route[5] or '' }}</td>
+                    <td class="body_col"> {{ route[6] or '' }}</td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
+
+
+
+            </tbody>
+        </table>
+    </div>
+</div>

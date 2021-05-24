@@ -1,0 +1,185 @@
+<div class="row justify-content-center">
+    <div class="col-12">
+
+
+        <form method="get" action="{{ url_for('sort') }}">
+            <!--Main sorting row-->
+            <div class="row form-view justify-content-start" style="padding:2em">
+<!--VIEW SORT-->
+                <div class="col-4">
+                    <div class="row justify-content-center">
+                        <div class="col-9">
+                            {% if session['name_selected'] != '' %}
+            <!--VIEW ALL-->
+                            <div class="custom-control custom-radio">
+                                <input type="radio"
+                                       id="view_all"
+                                       name="view"
+                                       class="custom-control-input"
+                                       value="all"
+                                       onclick="form.submit();"
+                                        {% if session['view'] == 'all' %}
+                                       checked
+                                        {% endif %}>
+                                <label class="custom-control-label" for="view_all">View All </label>
+                            </div>
+            <!--VIEW COMPLETED-->
+                            <div class="custom-control custom-radio">
+                                <input type="radio"
+                                       id="view_completed"
+                                       name="view"
+                                       class="custom-control-input"
+                                       value="completed"
+                                       onclick="form.submit();"
+                                        {% if session['view'] == 'completed' %}
+                                       checked
+                                        {% endif %}>
+                                <label class="custom-control-label" for="view_completed">View Completed</label>
+                            </div>
+            <!--VIEW REMAINING-->
+                            <div class="custom-control custom-radio">
+                                <input type="radio"
+                                       id="view_remaining"
+                                       name="view"
+                                       class="custom-control-input"
+                                       value="remaining"
+                                       onclick="form.submit();"
+                                        {% if session['view'] == 'remaining' %}
+                                       checked
+                                        {% endif %}>
+                                <label class="custom-control-label" for="view_remaining">View Remaining</label>
+                            </div>
+
+                            {%  endif %}
+                        </div>
+                    </div>
+
+                </div>
+
+<!--grade drop down select-->
+                <div class="col-4">
+                    <div class="d-flex justify-content-center grade_select">
+                        <label>
+                            <select onchange="this.form.submit()" class="form-control" name="grade">
+                                    <option value="all"
+                                            {% if session['grade'] == '' %}
+                                            selected
+                                            {% endif %}>All Grades
+                                    </option>
+
+                                {% for grade in session['all_grades'].items() %}
+                                    <option value="{{ grade[0] }}"
+                                            {% if session['grade'] == grade[0] %}
+                                            selected
+                                            {% endif %}>{{ grade[1] }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                </div>
+
+<!--match select-->
+                <div class="col-4">
+                    <div class="row justify-content-center h-100">
+                        <div class="col-9 align-self-center">
+                <!--EXACT MATCH-->
+                            <div class="custom-control custom-radio">
+                                <input type="radio"
+                                       id="exact_match"
+                                       name="exact_match"
+                                       class="custom-control-input"
+                                       value="true"
+                                       onclick="form.submit();"
+                                        {% if session['exact_match'] == 'true' %}
+                                       checked
+                                        {% endif %}>
+                                <label class="custom-control-label" for="exact_match">Exact Match</label>
+                            </div>
+                <!--LESS THAN OR EQUAL TO-->
+                            <div class="custom-control custom-radio">
+                                <input type="radio"
+                                       id="exact_match1"
+                                       name="exact_match"
+                                       class="custom-control-input"
+                                       value="false"
+                                       onclick="form.submit();"
+                                        {% if session['exact_match'] == 'false' %}
+                                       checked
+                                        {% endif %}>
+                                <label class="custom-control-label" for="exact_match1">Maximum Grade</label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Secondary Form Row-->
+            <div class="row form-search search-row align-items-center justify-content-center">
+
+                <!--Mountain Project Search-->
+                <div class="col-6 name-search">
+                    <label for="nameSearch">Mountain Project Username</label>
+
+                    <div class="input-group mb-3">
+                        <input type="text" name="name_to_search" id="nameSearch" class="form-control"
+                                {% if session['name_selected'] == '' %}
+                                        placeholder="Enter name or username"
+                                {% else %}
+                                    {% for name, id in session['name_selected'] %}
+                                        placeholder="{{ name }} - {{ id }}"
+                                    {% endfor %}
+                               {% endif %}
+                        >
+                        <div class="input-group-append">
+                            {%  if session['name_selected'] == '' %}
+                                <input class="btn btn-primary" type="submit" value="search">
+                            {% else %}
+                                <button class ="btn btn-primary" id="reset" name="reset" value="True">Reset</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+<!--Search Results-->
+                <div class="col-3 name-results">
+                    <div class="d-flex justify-content-center grade_select">
+
+                        <!--Many results-->
+                        {% if name_search_results|length > 1 %}
+                            multiple names selected
+                        <label for="nameSelect">Search Results
+                            <select onchange="this.form.submit()" class="form-control" name="name_selected">
+                                    <option> Please select a user</option>
+                                {% for name, id in session['name_search_results'] %}
+                                    {% set user_id = (name, id) %}
+                                    <option value="{{ user_id }}">{{ name }}-{{ id }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                        {% endif %}
+                    </div>
+                </div>
+<!--Select Area-->
+                <div class="col-4">
+                    <div class="d-flex justify-content-center grade_select">
+                        <label>
+                            <select onchange="this.form.submit()" class="form-control" name="area">
+                                    <option value="Rumney"
+                                         {% if session['area'] == 'Rumney' %}
+                                            selected
+                                        {% endif %}> Rumney
+                                    </option>
+                                    <option value="Bishop"
+                                        {% if session['area'] == 'Bishop' %}
+                                            selected
+                                        {% endif %}> Bishop
+                                    </option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
