@@ -1,0 +1,142 @@
+table {
+    display:table;
+    font-size:14px;
+    margin:8px;
+    font-family: Verdana, serif;
+
+}
+tr{
+    display:table-row;
+    border: 1px solid silver;
+    padding:10px;
+    background-color:whitesmoke;
+}
+
+.table_header{
+    text-align:left;
+}
+
+td.route_col0{
+    padding-left: 4em;
+}
+
+td.route_col1,  th.rating_header{
+    text-align:left;
+}
+
+th.body_col, td.body_col, td.route_col6{
+    text-align: center;
+}
+
+tr.completed_route{
+    background-color: green;
+}
+
+.bg-cover {
+     background-image:url('/static/styles/P1060899.JPG');
+    background-size: cover !important;
+}
+
+body {
+    min-height: 100vh;
+}
+
+p {
+    padding-bottom: 1em;
+}
+
+.form{
+
+   /* border-radius: 5px;
+    background-color: #f2f2f2;
+    border: 1px solid silver;
+    margin-bottom: 2em;
+    padding:10px;*/
+}
+
+.match{
+background-color:indianred;
+}
+
+.match-inner{
+    background-color:hotpink;
+}
+
+.view{
+background-color:darkcyan;
+}
+
+.button-row{
+        margin-bottom: 2em;
+}
+
+.main_form_row{
+    background-color: #f2f2f2;
+    border: 1px solid silver;
+    margin-bottom: 1em;
+    padding:10px;
+}
+
+.custom-control-label{
+    width:auto;
+}
+
+.custom-control .custom-radio{
+    width:auto;
+}
+
+form {
+    /*border: 1px solid silver;*/
+    background-color: #f4623a;
+
+}
+
+
+
+/*Make container run to both margins (prev width max was 75%)*/
+.container {
+    background-color:#ffffff;
+    max-width:100%;
+    padding-right:0;
+    padding-left:0;
+}
+
+/*Remove padding below header*/
+.jumbotron {
+    margin-bottom: 0;
+    border-radius:0;
+}
+
+.jumbotron p{
+        color:black;
+}
+/*Set the color of the headline on the banner*/
+.jumbotron h1{
+        color:#f4623a;
+}
+.form-reset{
+    padding-bottom:2rem;
+}
+
+
+/*DEBUG*/
+
+/*.form-view{*/
+/*    background-color:orange;*/
+/*}*/
+
+.form-search{
+    background-color:blue;
+}
+
+.form-reset{
+    background-color:green;
+}
+
+.name-search{
+    background-color:lightskyblue;
+}
+
+.name-results{
+    background-color:mediumslateblue;
+}
