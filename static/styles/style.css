@@ -33,7 +33,8 @@ tr.completed_route{
 }
 
 .bg-cover {
-     background-image:url('/static/styles/P1060899.JPG');
+
+     background-image:url('P1060899.JPG');
     background-size: cover !important;
 }
 
