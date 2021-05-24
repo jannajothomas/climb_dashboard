@@ -1,4 +1,3 @@
-from time import time
 
 from flask import Flask, session, render_template, request
 
@@ -20,14 +19,19 @@ flask_session.Session(app)
 
 @app.route('/')
 def home_page():
-    logging.basicConfig(filename='file.log', format='%(asctime)s %(message)s', filemode='w', level=logging.INFO, force=True)
+    logging.basicConfig(
+        filename='file.log',
+        format='%(asctime)s %(message)s',
+        filemode='w',
+        level=logging.INFO,
+        force=True)
     # logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.INFO)
     logging.info('First Log')
     update_session_var()
     logging.info('session variables updated')
     con = db.create_connection("climbDash")
     db.create_tables_if_needed(con)
-    logging.info('craeted tables if they were needed')
+    logging.info('created tables if they were needed')
     db.update_routes(constants.areas)
     logging.info('updated routes')
     return render_my_template()
@@ -95,4 +99,4 @@ if __name__ == '__main__':
     app.config['SESSION_TYPE'] = 'filesystem'
 
     app.debug = True
-    app.run()
+    app.run(port=0)
