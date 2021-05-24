@@ -20,12 +20,11 @@ flask_session.Session(app)
 @app.route('/')
 def home_page():
     logging.basicConfig(
-        filename='file.log',
+        filename='/var/log/Python/climb.log',
         format='%(asctime)s %(message)s',
         filemode='w',
         level=logging.INFO,
         force=True)
-    # logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.INFO)
     logging.info('First Log')
     update_session_var()
     logging.info('session variables updated')
