@@ -20,16 +20,16 @@ flask_session.Session(app)
 
 @app.route('/')
 def home_page():
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(filename='file.log', format='%(asctime)s %(message)s', filemode='w', level=logging.DEBUG)
     # logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.INFO)
-    logging.info('So should this')
+    logging.info('First Log')
     update_session_var()
-    logging.info('So should this')
+    logging.info('session variables updated')
     con = db.create_connection("climbDash")
     db.create_tables_if_needed(con)
-    logging.info('So should this')
+    logging.info('craeted tables if they were needed')
     db.update_routes(constants.areas)
-    logging.info('8', time())
+    logging.info('updated routes')
     return render_my_template()
 
 
@@ -56,7 +56,7 @@ def render_my_template():
                        session['grade'],
                        session['exact_match'],
                        session['view'])
-    logging.info('9', time())
+    logging.info('got rows')
     return render_template('body.html',
                            form=Markup(render_template('form.html',
                                                        form_parameters=session)),
