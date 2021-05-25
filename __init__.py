@@ -55,11 +55,12 @@ def sort():
 
 
 def render_my_template():
-    rows = db.get_rows(session['area'],
-                       session['crag'],
-                       session['grade'],
-                       session['exact_match'],
-                       session['view'])
+    rows = []
+    # rows = db.get_rows(session['area'],
+    #                    session['crag'],
+    #                    session['grade'],
+    #                    session['exact_match'],
+    #                    session['view'])
     logging.info('got rows')
     return render_template('body.html',
                            form=Markup(render_template('form.html',
