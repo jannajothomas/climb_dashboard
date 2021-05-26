@@ -1,7 +1,6 @@
 # import sqlite3
 import mariadb
 import sys
-import logging
 import config
 import constants
 from web_requests import get_csv_reader_from_url
@@ -45,20 +44,16 @@ def create_connection(database):
 def update_routes(areas):
     # update database
     con = create_connection("climbDash")
-    logging.info('created connection')
     for area in areas:
-        logging.info('starting a  new area')
         reader = get_csv_reader_from_url(area)
         # skip header
         next(reader)
-        logging.info('starting adding  rows')
         for row in reader:
             add_route_to_table(con, list(row))
     con.close()
 
 
 def add_route_to_table(con, row):
-    logging.info('just got into add_route_to_table')
     area, crag, wall = get_area_crag_wall(row[1])
     unkey = row[0] + row[1]
     route = (row[0], row[6], area, crag, row[1], wall, unkey)
@@ -66,11 +61,8 @@ def add_route_to_table(con, row):
     sql = "INSERT IGNORE INTO routes(name, grade, area, crag, full_location, wall, unkey)" \
           "VALUES (%s, %s, %s, %s, %s, %s, %s)"
     cur = con.cursor()
-    logging.info('before execute')
     cur.execute(sql, route)
-    logging.info('after execute')
     con.commit()
-    logging.info('completed_add row to table')
 
 
 def get_area_crag_wall(location):
