@@ -1,4 +1,7 @@
-# import sqlite3
+# TODO: Rev 3 changes
+# TODO: Ticks should only apply when a user is logged on
+
+
 import mariadb
 import sys
 import config
