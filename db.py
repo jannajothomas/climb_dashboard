@@ -1,5 +1,6 @@
 # TODO: Rev 3 changes
 # TODO: Ticks should only apply when a user is logged on
+# TODO: Page takes a LONG time to load....don't know why
 
 
 import mariadb
@@ -7,9 +8,11 @@ import sys
 import config
 import constants
 from web_requests import get_csv_reader_from_url
+import logging
 
 
 def create_tables_if_needed(con):
+    logging.debug("creating tables if needed....")
     for table in constants.tables:
         sql = 'CREATE TABLE IF NOT EXISTS ' + table['dict_name'] + '('
         for key, value in table.items():
@@ -47,13 +50,16 @@ def create_connection(database):
 def update_routes(areas):
     # update database
     con = create_connection("climbDash")
+
     for area in areas:
+        logging.debug('creating area' + area)
         reader = get_csv_reader_from_url(area)
         # skip header
         next(reader)
         for row in reader:
             add_route_to_table(con, list(row))
     con.close()
+    logging.debug('finished creating areas')
 
 
 def add_route_to_table(con, row):
