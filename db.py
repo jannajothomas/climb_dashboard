@@ -119,14 +119,14 @@ def add_tick_to_table(con, row, user_id):
 
 # ---------------------------------QUERY-------------------------
 
-def get_rows(area, crag, grade, exact_match, view):
+def get_rows(area, crag, grade, exact_match, view, user_id, db):
     if crag == 'all':
         crag = '%'
     if grade == 'all':
         grade = 17
 
     # params = (area, crag, lt_grade, grade)
-    params = (grade, crag, area)
+    params = (grade, user_id, crag, area)
     sql = ''
     if view == 'all' and exact_match == 'false':
         sql = '''
@@ -185,6 +185,7 @@ def get_rows(area, crag, grade, exact_match, view):
                     AND g.integer_grade <= %s
                 LEFT JOIN ticks t
                     ON r.name = t.route_name
+                    AND t.user_id = %s
                     AND t.route_name IS NULL
                 WHERE r.CRAG = %s AND r.AREA = %s
                 ORDER BY r.crag, r.name
@@ -198,6 +199,7 @@ def get_rows(area, crag, grade, exact_match, view):
                     AND g.integer_grade = %s
                 LEFT JOIN ticks t
                     ON r.name = t.route_name
+                    AND t.user_id = %s
                     AND t.route_name IS NULL
                 WHERE r.CRAG = %s AND r.AREA = %s
                 ORDER BY r.crag, r.name
