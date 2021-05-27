@@ -137,6 +137,7 @@ def get_rows(area, crag, grade, exact_match, view, user_id, db):
                     AND g.integer_grade <= %s
                 LEFT JOIN ticks t
                     ON r.name = t.route_name
+                    and t.user_id = %s
             WHERE r.CRAG LIKE %s AND r.AREA LIKE %s
             ORDER BY r.crag, r.name
             '''
@@ -149,6 +150,7 @@ def get_rows(area, crag, grade, exact_match, view, user_id, db):
                     AND g.integer_grade = %s
                 LEFT JOIN ticks t
                     ON r.name = t.route_name
+                    AND t.user_id = %s
             WHERE r.CRAG LIKE %s AND r.AREA LIKE %s
             ORDER BY r.crag, r.name
             '''
@@ -161,7 +163,8 @@ def get_rows(area, crag, grade, exact_match, view, user_id, db):
                 AND g.integer_grade <= %s
             INNER JOIN ticks t
                 ON r.name = t.route_name
-            WHERE r.CRAG = %s AND r.AREA = %s
+                AND t.user_id = %s
+            WHERE r.CRAG LIKE %s AND r.AREA LIKE %s
             ORDER BY r.crag, r.name
             '''
     elif view == 'completed' and exact_match == 'true':
@@ -172,8 +175,9 @@ def get_rows(area, crag, grade, exact_match, view, user_id, db):
                     ON r.grade = g.route_grade
                     AND g.integer_grade = %s
                 INNER JOIN ticks t
-                        ON r.name = t.route_name
-            WHERE r.CRAG = %s AND r.AREA = %s
+                    ON r.name = t.route_name
+                    AND t.user_id = %s
+            WHERE r.CRAG LIKE %s AND r.AREA LIKE %s
             ORDER BY r.crag, r.name
             '''
     elif view == 'remaining' and exact_match == 'false':
@@ -187,7 +191,7 @@ def get_rows(area, crag, grade, exact_match, view, user_id, db):
                     ON r.name = t.route_name
                     AND t.user_id = %s
                     AND t.route_name IS NULL
-                WHERE r.CRAG = %s AND r.AREA = %s
+                WHERE r.CRAG LIKE %s AND r.AREA LIKE %s
                 ORDER BY r.crag, r.name
                 '''
     elif view == 'remaining' and exact_match == 'true':
@@ -201,12 +205,13 @@ def get_rows(area, crag, grade, exact_match, view, user_id, db):
                     ON r.name = t.route_name
                     AND t.user_id = %s
                     AND t.route_name IS NULL
-                WHERE r.CRAG = %s AND r.AREA = %s
+                WHERE r.CRAG LIKE %s AND r.AREA LIKE %s
                 ORDER BY r.crag, r.name
                 '''
     else:
         print('something wrong.  No cases selected')
-    con = create_connection('climbDash')
+    con = create_connection(db)
     cur = con.cursor()
     cur.execute(sql, params)
-    return cur.fetchall()
+    rows = cur.fetchall()
+    return rows

@@ -56,7 +56,6 @@ def sort():
 
 
 def render_my_template():
-    rows = []
     rows = db.get_rows(session['area'],
                        session['crag'],
                        session['grade'],
