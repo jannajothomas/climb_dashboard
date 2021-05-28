@@ -147,7 +147,7 @@ def get_rows(area, crag, grade, exact_match, view, user_id, db):
             FROM routes r
                 INNER JOIN grades g
                     ON r.grade = g.route_grade
-                    AND g.integer_grade = %s
+                    AND g.integer_grade LIKE %s
                 LEFT JOIN ticks t
                     ON r.name = t.route_name
                     AND t.user_id = %s
@@ -173,7 +173,7 @@ def get_rows(area, crag, grade, exact_match, view, user_id, db):
             FROM routes r
                 INNER JOIN grades g 
                     ON r.grade = g.route_grade
-                    AND g.integer_grade = %s
+                    AND g.integer_grade LIKE %s
                 INNER JOIN ticks t
                     ON r.name = t.route_name
                     AND t.user_id = %s
@@ -200,7 +200,7 @@ def get_rows(area, crag, grade, exact_match, view, user_id, db):
             FROM routes r
                 INNER JOIN grades g 
                     ON r.grade = g.route_grade
-                    AND g.integer_grade = %s
+                    AND g.integer_grade LIKE %s
                 LEFT JOIN ticks t
                     ON r.name = t.route_name
                     AND t.user_id = %s
