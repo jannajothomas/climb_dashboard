@@ -17,8 +17,8 @@ class MyTestCase(unittest.TestCase):
         db.add_tick_to_table(myCon, tick2, '7027871')
         route1 = ['War and  Peace', 'Bonsai > *Rumney > New Hampshire', 'two', 'three', 'four', 'five', '5.9']
         route2 = ['Espresso', 'The Parking Lot Wall > *Rumney > New Hampshire', 'two', 'three', 'four', 'five', '5.9']
-        route3 = ['Giant Man', 'Bonsai > *Rumney > New Hampshire', 'two', 'three', 'four', 'five', '5.10 b/c']
-        route4 = ['Flying Hawaiian', 'Waimea > *Rumney > New Hampshire', 'two', 'three', 'four', 'five', '5.10 a']
+        route3 = ['Giant Man', 'Bonsai > *Rumney > New Hampshire', 'two', 'three', 'four', 'five', '5.10b']
+        route4 = ['Flying Hawaiian', 'Waimea > *Rumney > New Hampshire', 'two', 'three', 'four', 'five', '5.10a']
 
         db.add_route_to_table(myCon, route1)
         db.add_route_to_table(myCon, route2)
@@ -51,9 +51,8 @@ class MyTestCase(unittest.TestCase):
 
     def test_query_remaining(self):
 
-        query_results = db.get_rows('Rumney', 'all', 9, 'false', 'remaining', '', 'climbTest')
+        query_results = db.get_rows('Rumney', 'all', 9, 'false', 'remaining', '7027752', 'climbTest')
         expected_results = [
-            ('Bonsai', 'War and  Peace', '5.9', None, None, None, None),
             ('The Parking Lot Wall', 'Espresso', '5.9', None, None, None, None)
         ]
         self.assertEqual(expected_results, query_results)
@@ -65,6 +64,15 @@ class MyTestCase(unittest.TestCase):
         ]
         self.assertEqual(expected_results, query_results)
 
+    def test_query_view_all_exact_match_false(self):
+        # todo
+        print('todoj')
+
+    def test_query_completed_exact_match_true(self):
+        query_results = db.get_rows('Rumney', 'all', 10, 'true', 'completed', '7027752', 'climbTest')
+        expected_results = []
+        self.assertEqual(expected_results, query_results)
+
     def test_query_completed_exact_match_false(self):
         query_results = db.get_rows('Rumney', 'all', 10, 'false', 'completed', '7027752', 'climbTest')
         expected_results = [
@@ -72,22 +80,27 @@ class MyTestCase(unittest.TestCase):
         ]
         self.assertEqual(expected_results, query_results)
 
-    def test_query_completed_exact_match_true(self):
-        query_results = db.get_rows('Rumney', 'all', 10, 'true', 'completed', '7027752', 'climbTest')
-        expected_results = []
+    def test_query_remaining_exact_match_false(self):
+        query_results = db.get_rows('Rumney', 'all', 'all', 'false', 'remaining', '7027752', 'climbTest')
+        expected_results = [
+            ('Bonsai', 'Giant Man', '5.10b', None, None, None, None),
+            ('The Parking Lot Wall', 'Espresso', '5.9', None, None, None, None),
+            ('Waimea', 'Flying Hawaiian', '5.10a', None, None, None, None)
+
+        ]
         self.assertEqual(expected_results, query_results)
 
     def test_query_remaining_exact_match_true(self):
-        query_results = db.get_rows('Rumney', 'all', 10, 'true', 'remaining', '', 'climbTest')
+        query_results = db.get_rows('Rumney', 'all', 10, 'true', 'remaining', '7027752', 'climbTest')
         expected_results = [
             ('Waimea', 'Flying Hawaiian', '5.10a', None, None, None, None)
         ]
         self.assertEqual(expected_results, query_results)
 
     def test_query_remaining_exact_match_true_grade_all(self):
-        query_results = db.get_rows('Rumney', 'all', 'all', 'true', 'remaining', '', 'climbTest')
+        query_results = db.get_rows('Rumney', 'all', 'all', 'true', 'remaining', '7027752', 'climbTest')
         expected_results = [
-            ('Bonsai', 'War and  Peace', '5.9', None, None, None, None),
+            ('Bonsai', 'Giant Man', '5.10b', None, None, None, None),
             ('The Parking Lot Wall', 'Espresso', '5.9', None, None, None, None),
             ('Waimea', 'Flying Hawaiian', '5.10a', None, None, None, None)
         ]
