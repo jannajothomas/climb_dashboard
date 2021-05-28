@@ -156,6 +156,7 @@ def get_rows(area, crag, grade, exact_match, view, user_id, db):
             ORDER BY r.crag, r.name
             '''
     elif view == 'completed' and exact_match == 'false':
+        # THIS QUERY
         sql = '''
             SELECT r.crag, r.name, r.grade, t.date, t.style, t.lead_style, t.notes
             FROM routes r
@@ -188,11 +189,12 @@ def get_rows(area, crag, grade, exact_match, view, user_id, db):
                 INNER JOIN grades g 
                     ON r.grade = g.route_grade
                     AND g.integer_grade <= %s
-                LEFT JOIN ticks t
+                LEFT JOIN ticks t 
                     ON r.name = t.route_name
                     AND t.user_id = %s
+                WHERE r.CRAG LIKE %s 
+                    AND r.AREA LIKE %s 
                     AND t.route_name IS NULL
-                WHERE r.CRAG LIKE %s AND r.AREA LIKE %s
                 ORDER BY r.crag, r.name
                 '''
     elif view == 'remaining' and exact_match == 'true':
@@ -205,8 +207,9 @@ def get_rows(area, crag, grade, exact_match, view, user_id, db):
                 LEFT JOIN ticks t
                     ON r.name = t.route_name
                     AND t.user_id = %s
+                WHERE r.CRAG LIKE %s 
+                    AND r.AREA LIKE %s 
                     AND t.route_name IS NULL
-                WHERE r.CRAG LIKE %s AND r.AREA LIKE %s
                 ORDER BY r.crag, r.name
                 '''
     else:
