@@ -126,10 +126,9 @@
                                 {% if session['name_selected'] == '' %}
                                         placeholder="Enter name or username"
                                 {% else %}
-                                    {% for name, id in session['name_selected'] %}
+                                    {% set name,id = session['name_selected'] %}
                                         placeholder="{{ name }} - {{ id }}"
-                                    {% endfor %}
-                               {% endif %}
+                                {% endif %}
                         >
                         <div class="input-group-append">
                             {%  if session['name_selected'] == '' %}
