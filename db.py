@@ -68,13 +68,11 @@ def update_routes(areas):
 def add_route_to_table(con, row):
     area, crag, wall = get_area_crag_wall(row[1])
     unkey = row[0] + row[1]
-    route = (row[0], row[6], area, crag, row[1], wall, unkey)
-    # route = ('name', 'grade', 'area', 'crag', 'location', 'wall')
+    params = (row[0], row[6], area, crag, row[1], wall, unkey)
     sql = "INSERT IGNORE INTO routes(name, grade, area, crag, full_location, wall, unkey)" \
           "VALUES (%s, %s, %s, %s, %s, %s, %s)"
     cur = con.cursor()
-    cur.execute(sql, route)
-    con.commit()
+    cur.execute(sql, params)
 
 
 def get_area_crag_wall(location):
