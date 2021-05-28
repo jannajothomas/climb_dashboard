@@ -53,12 +53,14 @@ def update_routes(areas):
     con = create_connection("climbDash")
 
     for area in areas:
-        logging.info('creating area' + area)
+        logging.info('creating area')
         reader = get_csv_reader_from_url(area)
         # skip header
         next(reader)
+        logging.info('reader in place.  Ready to ad rows')
         for row in reader:
             add_route_to_table(con, list(row))
+    logging.info('done adding rows, ready to close connection')
     con.close()
     logging.debug('finished creating areas')
 
