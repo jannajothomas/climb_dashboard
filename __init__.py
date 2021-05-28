@@ -45,7 +45,7 @@ def sort():
         if len(user_data) == 1:
             session['name_selected'] = user_data[0]
             x, user_id = user_data[0]
-            session['user_id'] = user_id
+            session['user'] = user_id
             session['name_to_search'] = ''
             tick_url = web_requests.get_tick_url(user_data[0])
             reader = web_requests.get_csv_reader_from_url(tick_url)
@@ -61,7 +61,7 @@ def render_my_template():
                        session['grade'],
                        session['exact_match'],
                        session['view'],
-                       session['user_id'],
+                       session['user'],
                        'climbDash')
     logging.info('got rows')
     return render_template('body.html',
