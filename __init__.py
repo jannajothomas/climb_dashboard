@@ -26,14 +26,14 @@ def home_page():
         filemode='w',
         level=logging.INFO,
         force=True)
-    logging.info('First Log')
+    logging.info('Beginning new session')
     update_session_var()
-    logging.info('session variables updated')
+    # logging.info('session variables updated')
     con = db.create_connection("climbDash")
     db.create_tables_if_needed(con)
-    logging.info('created tables if they were needed')
+    logging.info('before updating routes')
     db.update_routes(constants.areas)
-    logging.info('updated routes')
+    logging.info('after routes updated')
     return render_my_template()
 
 
@@ -63,7 +63,7 @@ def render_my_template():
                        session['view'],
                        session['user'],
                        'climbDash')
-    logging.info('got rows')
+    # logging.info('got rows')
     return render_template('body.html',
                            form=Markup(render_template('form.html',
                                                        form_parameters=session)),

@@ -49,10 +49,11 @@ def create_connection(database):
 # ---------------------SETUP ROUTES------------------------
 def update_routes(areas):
     # update database
+    logging.info("creating connection")
     con = create_connection("climbDash")
 
     for area in areas:
-        logging.debug('creating area' + area)
+        logging.info('creating area' + area)
         reader = get_csv_reader_from_url(area)
         # skip header
         next(reader)
