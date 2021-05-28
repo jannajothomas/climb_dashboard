@@ -127,7 +127,6 @@ def get_rows(area, crag, grade, exact_match, view, user_id, db):
     elif grade == 'all' and exact_match == 'true':
         grade = '%'
 
-    # params = (area, crag, lt_grade, grade)
     params = (grade, user_id, crag, area)
     sql = ''
     if view == 'all' and exact_match == 'false':
