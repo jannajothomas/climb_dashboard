@@ -1,5 +1,7 @@
 import unittest
 
+import mariadb
+
 import db
 
 
@@ -7,6 +9,11 @@ class MyTestCase(unittest.TestCase):
     def test_database_creation(self):
         con = db.create_connection("climbDash")
         self.assertIsNotNone(con)
+
+    def test_database_creation_error(self):
+        with self.assertRaises(SystemExit) as cm:
+            db.create_connection('climbSmash')
+        self.assertEqual(cm.exception.code, 1)
 
     def test_create_tables(self):
         con = db.create_connection("climbTestCreateTable")

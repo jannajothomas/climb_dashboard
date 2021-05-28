@@ -84,6 +84,15 @@ class MyTestCase(unittest.TestCase):
         ]
         self.assertEqual(expected_results, query_results)
 
+    def test_query_remaining_exact_match_true_grade_all(self):
+        query_results = db.get_rows('Rumney', 'all', 'all', 'true', 'remaining', '', 'climbTest')
+        expected_results = [
+            ('Bonsai', 'War and  Peace', '5.9', None, None, None, None),
+            ('The Parking Lot Wall', 'Espresso', '5.9', None, None, None, None),
+            ('Waimea', 'Flying Hawaiian', '5.10a', None, None, None, None)
+        ]
+        self.assertEqual(expected_results, query_results)
+
 
 if __name__ == '__main__':
     unittest.main()
