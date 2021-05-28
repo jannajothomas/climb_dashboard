@@ -122,8 +122,10 @@ def add_tick_to_table(con, row, user_id):
 def get_rows(area, crag, grade, exact_match, view, user_id, db):
     if crag == 'all':
         crag = '%'
-    if grade == 'all':
+    if grade == 'all' and exact_match == 'false':
         grade = 17
+    elif grade == 'all' and exact_match == 'true':
+        grade = '%'
 
     # params = (area, crag, lt_grade, grade)
     params = (grade, user_id, crag, area)
